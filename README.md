@@ -1,16 +1,18 @@
 # Semantic Uncertainty: Linguistic Invariances for Uncertainty Estimation in Natural Language Generation
+![image](https://user-images.githubusercontent.com/9898136/223769227-e090f063-d366-4f5d-aaf7-e1681a09c47c.png)
+# Overview
 
-### Overview
+This repository contains the code used in Semantic Uncertainty: Linguistic Invariances for Uncertainty Estimation in Natural Language Generation ([arXiv](https://arxiv.org/abs/2302.09664))
 
 `run_pipeline.sh` is a slurm batch script that executes all steps of our pipeline.   `sbatch run_pipeline.sh` submits the batch script.
 
-**Preprocessing & Config**
+### Preprocessing & Config
 
 `parse_triviaqa.py` and `parse_coqa.py`  load TriviaQA and CoQA from HuggingFace, tokenize it and store the data sets. These scripts only have to be run once. 
 
 You'll also have to set the paths where you would like to store intermediate and final results of the pipeline in `config.py`.
 
-**Generating answers and computing uncertainty measures**
+### Generating answers and computing uncertainty measures
 
 The components of our pipeline are:
 
@@ -20,7 +22,7 @@ The components of our pipeline are:
 * `compute_likelihoods.py` computes the likelihoods of the generated answers under the generating model.
 * `compute_confidence_measure.py` computes a range of different conficence/uncertainty measures such as the predictive entropy, lexical similarity, and p(True).
 
-**Analyzing results**
+### Analyzing results
 
 After running the pipeline, use `anlalyze_result.py` to compute performance metrics, such as the AUROC.
 
