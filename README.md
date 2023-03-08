@@ -1,5 +1,6 @@
 # Semantic Uncertainty: Linguistic Invariances for Uncertainty Estimation in Natural Language Generation
 ![image](https://user-images.githubusercontent.com/9898136/223769227-e090f063-d366-4f5d-aaf7-e1681a09c47c.png)
+
 # Overview
 
 This repository contains the code used in Semantic Uncertainty: Linguistic Invariances for Uncertainty Estimation in Natural Language Generation ([arXiv](https://arxiv.org/abs/2302.09664))
@@ -12,13 +13,16 @@ This repository contains the code used in Semantic Uncertainty: Linguistic Invar
 
 You'll also have to set the paths where you would like to store intermediate and final results of the pipeline in `config.py`.
 
-### Generating answers and computing uncertainty measures
+The `environment.yml` lists the dependencies of the conda environment we used for our experiments.
+
+### Generating answers and computing uncertainty measures
 
 The components of our pipeline are:
 
 * `generate.py` generates a number of answers for a subset of questions of a given data set. This step also evaluates the question-answering accuracy of the generated answers.
 * `clean_generations.py` post-processes the generations from the first step, mainly by removing any unwanted trailing text, e.g. in cases where the model first gives the answer to the given question and then generates an additional question.
 * `get_semantic_similarities.py` identifies semantic clusters in the generated set of answers from the previous step.
+* `get_prompting_based_uncertainty.py` computes the p(True) baseline.
 * `compute_likelihoods.py` computes the likelihoods of the generated answers under the generating model.
 * `compute_confidence_measure.py` computes a range of different conficence/uncertainty measures such as the predictive entropy, lexical similarity, and p(True).
 
