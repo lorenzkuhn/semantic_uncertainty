@@ -1,5 +1,7 @@
 # Semantic Uncertainty: Linguistic Invariances for Uncertainty Estimation in Natural Language Generation
-![image](https://user-images.githubusercontent.com/9898136/223769227-e090f063-d366-4f5d-aaf7-e1681a09c47c.png)
+
+![image](https://user-images.githubusercontent.com/9898136/223775961-7f9525fc-9674-4bf4-b15f-d49487daddca.png)
+
 
 # Overview
 
