@@ -4,9 +4,11 @@
 
 `run_pipeline.sh` is a slurm batch script that executes all steps of our pipeline.   `sbatch run_pipeline.sh` submits the batch script.
 
-**Preprocessing**
+**Preprocessing & Config**
 
 `parse_triviaqa.py` and `parse_coqa.py`  load TriviaQA and CoQA from HuggingFace, tokenize it and store the data sets. These scripts only have to be run once. 
+
+You'll also have to set the paths where you would like to store intermediate and final results of the pipeline in `config.py`.
 
 **Generating answers and computing uncertainty measures**
 
