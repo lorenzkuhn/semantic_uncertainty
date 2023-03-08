@@ -30,7 +30,7 @@ The components of our pipeline are:
 
 ### Analyzing results
 
-After running the pipeline, use `anlalyze_result.py` to compute performance metrics, such as the AUROC.
+After running the pipeline, use `analyze_result.py` to compute performance metrics, such as the AUROC.
 
 ### Hardware requirements
 
