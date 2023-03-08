@@ -52,8 +52,8 @@ device_map = {'model.decoder.embed_tokens': 0,
  'model.decoder.final_layer_norm': 1,
  'lm_head': 1}
 
-data_dir = '/scratch-ssd/loruhn/opt'
-hf_datasets_cache = '/scratch/loruhn/.cache/huggingface/datasets/'
+data_dir = ''
+hf_datasets_cache = ''
 
-output_dir = '/scratch-ssd/loruhn/opt/sequences'
+output_dir = ''
 
