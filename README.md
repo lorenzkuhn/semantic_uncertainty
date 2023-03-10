@@ -34,7 +34,7 @@ After running the pipeline, use `analyze_result.py` to compute performance metri
 
 ### Hardware requirements
 
-Most model runs should run with at least 40GB of GPU memory. An exception are the experiments on OPT-30B which we run on two 80GB A100s.
+Most model runs should run with at most 40GB of GPU memory. An exception are the experiments on OPT-30B which we run on two 80GB A100s.
 
 ### Dependencies
 
