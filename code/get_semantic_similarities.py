@@ -21,12 +21,11 @@ args = parser.parse_args()
 device = 'cuda'
 
 # Set a seed value
-seed_value= 10 
+seed_value = 10
 # 1. Set `PYTHONHASHSEED` environment variable at a fixed value
 
 os.environ['PYTHONHASHSEED'] = str(seed_value)
 # 2. Set `python` built-in pseudo-random generator at a fixed value
-
 
 random.seed(seed_value)
 # 3. Set `numpy` pseudo-random generator at a fixed value
@@ -54,7 +53,6 @@ result_dict = {}
 
 meteor = evaluate.load('meteor')
 
-
 deberta_predictions = []
 
 for sample in tqdm(sequences):
@@ -63,11 +61,11 @@ for sample in tqdm(sequences):
         generated_texts = sample['cleaned_generated_texts']
     else:
         generated_texts = sample['generated_texts']
-    
+
     id_ = sample['id'][0]
 
     unique_generated_texts = list(set(generated_texts))
-    
+
     answer_list_1 = []
     answer_list_2 = []
     has_semantically_different_answers = False
@@ -80,15 +78,14 @@ for sample in tqdm(sequences):
     semantic_set_ids = {}
     for index, answer in enumerate(unique_generated_texts):
         semantic_set_ids[answer] = index
-        
-    
+
     print('Number of unique answers:', len(unique_generated_texts))
 
     if len(unique_generated_texts) > 1:
 
         # Evalauate semantic similarity
         for i, reference_answer in enumerate(unique_generated_texts):
-            for j in range(i + 1 , len(unique_generated_texts)):
+            for j in range(i + 1, len(unique_generated_texts)):
 
                 answer_list_1.append(unique_generated_texts[i])
                 answer_list_2.append(unique_generated_texts[j])
@@ -98,7 +95,7 @@ for sample in tqdm(sequences):
 
                 input = qa_1 + ' [SEP] ' + qa_2
                 inputs.append(input)
-                encoded_input = tokenizer.encode(input, padding=True)              
+                encoded_input = tokenizer.encode(input, padding=True)
                 prediction = model(torch.tensor(torch.tensor([encoded_input]), device='cuda'))['logits']
                 predicted_label = torch.argmax(prediction, dim=1)
 
@@ -106,7 +103,7 @@ for sample in tqdm(sequences):
                 encoded_reverse_input = tokenizer.encode(reverse_input, padding=True)
                 reverse_prediction = model(torch.tensor(torch.tensor([encoded_reverse_input]), device='cuda'))['logits']
                 reverse_predicted_label = torch.argmax(reverse_prediction, dim=1)
-                
+
                 deberta_prediction = 1
                 print(qa_1, qa_2, predicted_label, reverse_predicted_label)
                 if 0 in predicted_label or 0 in reverse_predicted_label:
@@ -116,9 +113,8 @@ for sample in tqdm(sequences):
                 else:
                     semantic_set_ids[unique_generated_texts[j]] = semantic_set_ids[unique_generated_texts[i]]
 
-                deberta_predictions.append([unique_generated_texts[i], unique_generated_texts[j], deberta_prediction])                    
-                
-                
+                deberta_predictions.append([unique_generated_texts[i], unique_generated_texts[j], deberta_prediction])
+
         rouge = evaluate.load('rouge')
 
         # Evalauate syntactic similarity
@@ -131,14 +127,16 @@ for sample in tqdm(sequences):
                     answer_list_2.append(j)
 
         results = rouge.compute(predictions=answer_list_1, references=answer_list_2)
-        
+
         for rouge_type in rouge_types:
             syntactic_similarities[rouge_type] = results[rouge_type].mid.fmeasure
 
-    result_dict[id_] = {'syntactic_similarities': syntactic_similarities, 'has_semantically_different_answers': has_semantically_different_answers}
+    result_dict[id_] = {
+        'syntactic_similarities': syntactic_similarities,
+        'has_semantically_different_answers': has_semantically_different_answers
+    }
     list_of_semantic_set_ids = [semantic_set_ids[x] for x in generated_texts]
     result_dict[id_]['semantic_set_ids'] = list_of_semantic_set_ids
-
 
 with open('deberta_predictions_{}.csv'.format(args.run_id), 'w', encoding='UTF8', newline='') as f:
     writer = csv.writer(f)

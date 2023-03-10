@@ -19,7 +19,7 @@ args = parser.parse_args()
 device = 'cuda'
 
 # Set a seed value
-seed_value= 10 
+seed_value = 10
 # 1. Set `PYTHONHASHSEED` environment variable at a fixed value
 
 os.environ['PYTHONHASHSEED'] = str(seed_value)
@@ -56,26 +56,24 @@ for sample in tqdm(sequences):
 
     max_len_of_generations = cleaned_generations.shape[-1]
 
-    strings_to_filter_on = ['.', '\n', 'Q:', 'A:', 'question:', 'answer:', 'Question:', 'Answer:', 'Questions:', 'questions:', 'QUESTION:', 'ANSWER:']
+    strings_to_filter_on = [
+        '.', '\n', 'Q:', 'A:', 'question:', 'answer:', 'Question:', 'Answer:', 'Questions:', 'questions:', 'QUESTION:',
+        'ANSWER:'
+    ]
 
     for i, generated_text in enumerate(generated_texts):
         for string in strings_to_filter_on:
             if string in generated_text:
                 generated_text = generated_text.split(string)[0]
         cleaned_generated_texts.append(generated_text)
-        clean_ids = torch.cat([sample['prompt'].to(device), torch.tensor(tokenizer(generated_text)['input_ids'][1:], device=device)])
+        clean_ids = torch.cat(
+            [sample['prompt'].to(device),
+             torch.tensor(tokenizer(generated_text)['input_ids'][1:], device=device)])
         cleaned_generations[i, :min(len(clean_ids), max_len_of_generations)] = clean_ids[:max_len_of_generations]
-
 
     sample['cleaned_generated_texts'] = cleaned_generated_texts
     sample['cleaned_generations'] = cleaned_generations
     cleaned_sequences.append(sample)
-   
+
 with open(f'{config.output_dir}/{run_name}/{args.generation_model}_generations.pkl', 'wb') as outfile:
     pickle.dump(cleaned_sequences, outfile)
-
-    
-
-
-
-
