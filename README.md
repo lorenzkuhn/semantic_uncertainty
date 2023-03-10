@@ -26,7 +26,7 @@ The components of our pipeline are:
 * `get_semantic_similarities.py` identifies semantic clusters in the generated set of answers from the previous step.
 * `get_prompting_based_uncertainty.py` computes the p(True) baseline.
 * `compute_likelihoods.py` computes the likelihoods of the generated answers under the generating model.
-* `compute_confidence_measure.py` computes a range of different conficence/uncertainty measures such as the predictive entropy, lexical similarity, and p(True).
+* `compute_confidence_measure.py` computes a range of different conficence/uncertainty measures such as the semantice entropy predictive entropy, lexical similarity, and p(True).
 
 ### Analyzing results
 
