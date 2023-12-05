@@ -7,8 +7,6 @@ import numpy as np
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-import wandb
-
 parser = argparse.ArgumentParser()
 parser.add_argument('--evaluation_model', type=str, default='opt-350m')
 parser.add_argument('--generation_model', type=str, default='opt-350m')
@@ -42,9 +40,7 @@ tokenizer = AutoTokenizer.from_pretrained(f"facebook/{args.evaluation_model}",
                                           use_fast=False,
                                           cache_dir=config.data_dir)
 
-wandb.init(project='nlg_uncertainty', id=args.run_id, config=args, resume='allow')
-
-run_name = wandb.run.name
+run_name = "q+a"
 
 opt_models = ['opt-125m', 'opt-350m', 'opt-1.3b', 'opt-2.7b', 'opt-6.7b', 'opt-13b', 'opt-30b']
 

@@ -9,7 +9,6 @@ from tqdm import tqdm
 from transformers import AutoTokenizer
 
 import config
-import wandb
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--generation_model', type=str, default='opt-350m')
@@ -37,9 +36,7 @@ os.environ["HF_DATASETS_CACHE"] = config.hf_datasets_cache
 
 generation_tokenizer = AutoTokenizer.from_pretrained(f"facebook/opt-350m", use_fast=False, cache_dir=config.data_dir)
 
-wandb.init(project='nlg_uncertainty', id=args.run_id, config=args, resume='allow')
-
-run_name = wandb.run.name
+run_name = "q+a"
 
 tokenizer = AutoTokenizer.from_pretrained(f"facebook/opt-350m", use_fast=False, cache_dir=config.data_dir)
 

@@ -11,7 +11,6 @@ import evaluate
 import numpy as np
 import torch
 import tqdm
-import wandb
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 parser = argparse.ArgumentParser()
@@ -27,9 +26,8 @@ parser.add_argument('--top_p', type=float, default=1.0)
 parser.add_argument('--dataset', type=str, default='coqa')
 args = parser.parse_args()
 
-wandb.init(project='nlg_uncertainty', id=args.run_id, config=args, resume='allow')
 
-run_name = wandb.run.name
+run_name = "q+a"
 
 device = 'cuda'
 

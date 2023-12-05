@@ -15,7 +15,6 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 import config
 #sns.color_palette("pastel")
-import wandb
 from config import device_map
 
 # Set a seed value
@@ -43,8 +42,7 @@ parser.add_argument('--run_id_for_few_shot_prompt', type=str, default='run_1')
 parser.add_argument('--run_id_for_evaluation', type=str, default='run_1')
 args = parser.parse_args()
 
-wandb.init(project='nlg_uncertainty', id=args.run_id_for_few_shot_prompt, config=args, resume='allow')
-model_name = wandb.config.model
+model_name = "opt-350m"
 
 generation_tokenizer = AutoTokenizer.from_pretrained(f"facebook/opt-350m", use_fast=False, cache_dir=config.data_dir)
 model = AutoModelForCausalLM.from_pretrained(f"facebook/{model_name}",
@@ -54,14 +52,12 @@ model = AutoModelForCausalLM.from_pretrained(f"facebook/{model_name}",
 if model_name == 'opt-30b':
     accelerate.dispatch_model(model, device_map=device_map)
     print(model.hf_device_map)
-    device = torch.device('cuda:1')
+    #device = torch.device('cuda:1')
 
-run_name = wandb.run.name
+run_name = "q+a"
 
 with open(f'{config.output_dir} /{run_name}/{model_name}_generations.pkl', 'rb') as infile:
     sequences_for_few_shot_prompt = pickle.load(infile)
-
-wandb.finish()
 
 # Build few shot prompt
 

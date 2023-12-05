@@ -9,7 +9,6 @@ import pandas as pd
 import sklearn
 import sklearn.metrics
 import torch
-import wandb
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-n', '--run_ids', nargs='+', default=[])
@@ -25,9 +24,8 @@ sequence_embeddings_dict = {}
 run_ids_to_analyze = args.run_ids
 for run_id in run_ids_to_analyze:
 
-    wandb.init(project='nlg_uncertainty', id=run_id, resume='allow')
-    run_name = wandb.run.name
-    model_name = wandb.config.model
+    run_name = "q+a"
+    model_name = "opt-350m"
     print(run_name)
 
     def get_similarities_df():
@@ -208,12 +206,9 @@ for run_id in run_ids_to_analyze:
     result_dict['model_name'] = model_name
     result_dict['run_name'] = run_name
 
-    wandb.log(result_dict)
-
     overall_result_dict[run_id] = result_dict
     sequence_embeddings_dict[run_id] = sequence_embeddings
 
-    wandb.finish()
     torch.cuda.empty_cache()
 
 with open('overall_results.json', 'w') as f:

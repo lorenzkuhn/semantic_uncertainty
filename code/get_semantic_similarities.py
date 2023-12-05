@@ -3,6 +3,8 @@ import csv
 import os
 import pickle
 import random
+import random
+import string
 
 import evaluate
 import numpy as np
@@ -11,7 +13,6 @@ from tqdm import tqdm
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 import config
-import wandb
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--generation_model', type=str, default='opt-350m')
@@ -42,9 +43,8 @@ generation_tokenizer = AutoTokenizer.from_pretrained(f"facebook/opt-350m", use_f
 tokenizer = AutoTokenizer.from_pretrained("microsoft/deberta-large-mnli")
 model = AutoModelForSequenceClassification.from_pretrained("microsoft/deberta-large-mnli").cuda()
 
-wandb.init(project='nlg_uncertainty', id=args.run_id, config=args, resume='allow')
+run_name = "q+a"
 
-run_name = wandb.run.name
 
 with open(f'{config.output_dir}/{run_name}/{args.generation_model}_generations.pkl', 'rb') as infile:
     sequences = pickle.load(infile)

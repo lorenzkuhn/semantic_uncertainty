@@ -6,7 +6,6 @@ import random
 import config
 import numpy as np
 import torch
-import wandb
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--generation_model', type=str, default='opt-350m')
@@ -34,9 +33,7 @@ torch.manual_seed(seed_value)
 
 os.environ["HF_DATASETS_CACHE"] = config.hf_datasets_cache
 
-wandb.init(project='nlg_uncertainty', id=args.run_id, config=args, resume='allow')
-
-run_name = wandb.run.name
+run_name = "q+a"
 
 llh_shift = torch.tensor(5.0)
 
