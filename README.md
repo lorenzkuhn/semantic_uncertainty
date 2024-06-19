@@ -1,7 +1,14 @@
-# Semantic Uncertainty: Linguistic Invariances for Uncertainty Estimation in Natural Language Generation
+***
+
+# June 2024 — [A new and improved implementation of Semantic Uncertainty is available]([url](https://github.com/jlko/semantic_uncertainty)), this repo is deprecated
+We're excited to share a [new implementation of semantic uncertainty](https://github.com/jlko/semantic_uncertainty), please use the new implementation instead of this repository. Thank you for your interest!
+
+***
+
+
+### Semantic Uncertainty: Linguistic Invariances for Uncertainty Estimation in Natural Language Generation
 
 ![image](https://user-images.githubusercontent.com/9898136/223775961-7f9525fc-9674-4bf4-b15f-d49487daddca.png)
-
 
 # Overview
 
