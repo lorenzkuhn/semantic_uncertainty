@@ -1,7 +1,7 @@
 ***
 
 # June 2024 — [A new and improved implementation of Semantic Uncertainty is available]([url](https://github.com/jlko/semantic_uncertainty)), this repo is deprecated
-We're excited to share a [new implementation of semantic uncertainty](https://github.com/jlko/semantic_uncertainty) which corresponds to our 2024 paper _Detecting Hallucinations in Large Language Models Using Semantic Entropy_. Please use the new and improved version, we are deprecating this repository. Thank you for your interest!
+We're excited to share a [new implementation of semantic uncertainty](https://github.com/jlko/semantic_uncertainty) which corresponds to our [2024 Nature paper](https://www.nature.com/articles/s41586-024-07421-0) _Detecting Hallucinations in Large Language Models Using Semantic Entropy_. Please use the new and improved version, we are deprecating this repository. Thank you for your interest!
 
 This repository contains the code for our 2023 ICLR paper _Semantic Uncertainty: Linguistic Invariances for Uncertainty Estimation in Natural Language Generation_.
 
